@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function TaskInput({ onAdd }) {
   const [text, setText] = useState('')
@@ -62,7 +62,17 @@ function TaskList({ tasks, onToggle, onDelete }) {
 }
 
 export default function App() {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('tasks')) ?? []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const addTask = (text) => {
     setTasks((prev) => [...prev, { id: Date.now(), text, completed: false }])
