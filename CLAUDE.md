@@ -60,4 +60,8 @@ task-board/
 
 ## GitHubリポジトリ
 
-https://github.com/onouek-sketch89623288/0502-ONOUEK
+https://github.com/onouek-sketch89623288/task-board
+
+## デプロイ先
+
+https://onouek-sketch89623288.github.io/task-board/
