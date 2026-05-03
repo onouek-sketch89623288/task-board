@@ -1,14 +1,14 @@
-const { useState } = React;
+import { useState } from 'react'
 
 function TaskInput({ onAdd }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!text.trim()) return;
-    onAdd(text.trim());
-    setText('');
-  };
+    e.preventDefault()
+    if (!text.trim()) return
+    onAdd(text.trim())
+    setText('')
+  }
 
   return (
     <form onSubmit={handleSubmit} className="task-input">
@@ -20,7 +20,7 @@ function TaskInput({ onAdd }) {
       />
       <button type="submit">追加</button>
     </form>
-  );
+  )
 }
 
 function TaskItem({ task, onToggle, onDelete }) {
@@ -40,12 +40,12 @@ function TaskItem({ task, onToggle, onDelete }) {
         削除
       </button>
     </div>
-  );
+  )
 }
 
 function TaskList({ tasks, onToggle, onDelete }) {
   if (tasks.length === 0) {
-    return <p className="empty-message">タスクはまだありません</p>;
+    return <p className="empty-message">タスクはまだありません</p>
   }
   return (
     <div className="task-list">
@@ -58,27 +58,27 @@ function TaskList({ tasks, onToggle, onDelete }) {
         />
       ))}
     </div>
-  );
+  )
 }
 
-function App() {
-  const [tasks, setTasks] = useState([]);
+export default function App() {
+  const [tasks, setTasks] = useState([])
 
   const addTask = (text) => {
-    setTasks((prev) => [...prev, { id: Date.now(), text, completed: false }]);
-  };
+    setTasks((prev) => [...prev, { id: Date.now(), text, completed: false }])
+  }
 
   const toggleTask = (id) => {
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
       )
-    );
-  };
+    )
+  }
 
   const deleteTask = (id) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
+    setTasks((prev) => prev.filter((task) => task.id !== id))
+  }
 
   return (
     <div className="container">
@@ -86,7 +86,5 @@ function App() {
       <TaskInput onAdd={addTask} />
       <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
     </div>
-  );
+  )
 }
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
