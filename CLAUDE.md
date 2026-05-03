@@ -9,24 +9,24 @@ HTML/CSS/JavaScriptで構築するタスク管理ボードアプリ（いわゆ�
 
 - **HTML** — マークアップ・構造
 - **CSS** — スタイリング・レイアウト
-- **JavaScript** — ロジック・インタラクション（バニラJSのみ）
+- **React 18** — UIコンポーネント（CDN経由、Babel StandaloneでJSXをブラウザ変換）
 
-外部ライブラリは原則使用しない。
+ビルドツール不要のCDN構成。追加の外部ライブラリは原則使用しない。
 
 ## ディレクトリ構成
 
 ```
 task-board/
-├── index.html       # エントリーポイント
+├── index.html       # エントリーポイント（React/Babel CDN読み込み）
 ├── css/
 │   └── style.css    # スタイル
 └── js/
-    └── main.js      # アプリロジック
+    └── App.js       # Reactコンポーネント（JSX）
 ```
 
 ## 開発ルール
 
-- 外部ライブラリ・フレームワークは使用しない（バニラJSのみ）
+- React以外の外部ライブラリは使用しない
 - ファイルはすべてUTF-8（BOMなし）で保存する
 - CSSはモバイルファーストで記述する
 - JavaScriptは`const`/`let`を使い、`var`は使わない
