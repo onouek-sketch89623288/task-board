@@ -7,22 +7,56 @@ HTML/CSS/JavaScriptで構築するタスク管理ボードアプリ（いわゆ�
 
 ## 技術スタック
 
-- **HTML** — マークアップ・構造
-- **CSS** — スタイリング・レイアウト
-- **React 18** — UIコンポーネント（CDN経由、Babel StandaloneでJSXをブラウザ変換）
+| ライブラリ／ツール | バージョン | 用途 |
+|---|---|---|
+| React | ^18.3.1 | UIコンポーネント |
+| React DOM | ^18.3.1 | DOMレンダリング |
+| Vite | ^6.0.0 | 開発サーバー・ビルド |
+| @vitejs/plugin-react | ^4.3.4 | JSX変換（Babel） |
 
-ビルドツール不要のCDN構成。追加の外部ライブラリは原則使用しない。
+- 状態管理：React 組み込みの `useState` / `useEffect`（外部ライブラリ不使用）
+- データ永続化：`localStorage`
+- スタイリング：プレーン CSS（CSS Modules・Tailwind 等は使用しない）
 
 ## ディレクトリ構成
 
 ```
 task-board/
-├── index.html       # エントリーポイント（React/Babel CDN読み込み）
+├── index.html                  # エントリーポイント
+├── vite.config.js              # Vite設定
+├── package.json
 ├── css/
-│   └── style.css    # スタイル
-└── js/
-    └── App.js       # Reactコンポーネント（JSX）
+│   └── style.css               # グローバルスタイル
+├── js/
+│   ├── main.jsx                # ReactDOMマウント
+│   └── App.jsx                 # 全コンポーネント定義
+└── .github/
+    └── workflows/
+        └── deploy.yml          # GitHub Pagesデプロイ
 ```
+
+## コンポーネント命名規約
+
+### ファイル名
+- コンポーネントを含むファイルは `.jsx` 拡張子を使う
+- ファイル名はコンポーネント名と一致させる（例: `App.jsx`）
+
+### コンポーネント名
+- **PascalCase** を使う（例: `TaskItem`、`TaskList`）
+- 機能を表す名詞または「名詞＋役割」の形にする
+
+### 現在のコンポーネント構成
+
+```
+App                    # ルート。state管理とロジックを担う
+├── TaskInput          # テキスト入力フォーム。タスク追加のみ担当
+└── TaskList           # タスク一覧の描画
+    └── TaskItem       # 個々のタスク（チェックボックス・削除ボタン）
+```
+
+### props命名
+- イベントハンドラは `on` プレフィックスを使う（例: `onAdd`、`onToggle`、`onDelete`）
+- 真偽値は `is` / `has` プレフィックスを使う（例: `isCompleted`）
 
 ## 開発ルール
 
